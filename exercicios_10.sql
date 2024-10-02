@@ -67,6 +67,7 @@ $$;
 -- Números Positivos
 -- Faça um programa que leia 6 valores. Estes valores serão somente negativos ou positivos 
 -- (desconsidere os valores nulos). A seguir, mostre a quantidade de valores positivos digitados.
+-- Gerar inteiros no intervalo de -50 a 50.
 
 -- versão loop
 do $$
@@ -154,6 +155,7 @@ $$;
 -- https://www.beecrowd.com.br/judge/pt/problems/view/1071
 -- Soma de Impares Consecutivos I
 -- Leia 2 valores inteiros X e Y. A seguir, calcule e mostre a soma dos números impares entre eles.
+-- Gerar inteiros no intervalo de 20 a 50.
 
 -- versão loop
 do $$
@@ -288,6 +290,7 @@ $$;
 -- Leia um conjunto não determinado de pares de valores M e N (parar quando algum dos valores 
 -- for menor ou igual a zero). Para cada par lido, mostre a sequência do menor até o maior e 
 -- a soma dos inteiros consecutivos entre eles (incluindo o N e M).
+-- Gerar inteiros no intervalo de 1 a 100.
 
 -- versão loop
 do $$
@@ -416,7 +419,6 @@ declare
   swap int;
   saida text;
   soma int;
-  vazio int[];
   vetor int[];
   i int;
 begin
@@ -435,7 +437,7 @@ begin
 
     saida := '';
     soma := 0;
-    vetor := vazio;
+    vetor := array[]::int[];
 
     for i in m..n loop
       vetor := vetor || i;
@@ -456,5 +458,52 @@ $$;
 
 
 
+-- https://en.wikipedia.org/wiki/Rule_of_Sarrus
+-- 1.2 Faça um programa que calcule o determinante de uma matriz quadrada de ordem 3
+-- utilizando a regra de Sarrus. Veja a regra aqui:
+-- Preencha a matriz com valores inteiros aleatórios no intervalo de 1 a 12.
 
+-- versão loop
+do $$
+declare
+  t int := 3;
+  k int;
+  l int;
+  m int;
+  n int;
+  d int := 0;
+  vetor int[];
+  matriz int[];
+begin
+  for i in 1..t loop
+    vetor := array[]::int[];
+    for j in 1..t loop
+      vetor := vetor || valor_aleatorio_entre(1, 12);
+    end loop;
+    matriz := matriz || array[vetor];
+  end loop;
+  raise notice '%', matriz;
 
+  for i in 0..(t - 1) loop
+    m := 1;
+    n := 1;
+    for j in 1..t loop
+      k := j + i;
+      l := t + 1 - j - i;
+      if k > t then
+        k := k - t;
+      end if;
+      if l < 1 then
+        l := l + t;
+      end if;
+      m := m * matriz[j][k];
+      n := n * matriz[j][l];
+      -- raise notice '% %', matriz[j][k], matriz[j][l];
+    end loop;
+      raise notice '+% -%', m, n;
+    d := d + m - n;
+  end loop;
+
+  raise notice 'determinante: %', d;
+end;
+$$;
