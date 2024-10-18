@@ -319,16 +319,14 @@ begin
     soma := 0;
     <<interno>>
     loop
-      saida := saida || m;
-      saida := saida || ' ';
+      saida := saida || m || ' ';
       soma := soma + m;
       m := m + 1;
 
       exit interno when m > n;
     end loop;
 
-    saida := saida || 'Sum=';
-    saida := saida || soma;
+    saida := saida || 'Sum=' || soma;
     raise notice '%', saida;
   end loop;
 end;
@@ -356,14 +354,12 @@ begin
     saida := '';
     soma := 0;
     while m <= n loop
-      saida := saida || m;
-      saida := saida || ' ';
+      saida := saida || m || ' ';
       soma := soma + m;
       m := m + 1;
     end loop;
 
-    saida := saida || 'Sum=';
-    saida := saida || soma;
+    saida := saida || 'Sum=' || soma;
     raise notice '%', saida;
     
     m := valor_aleatorio_entre(-5, 100);
@@ -399,13 +395,11 @@ begin
     soma := 0;
 
     for i in m..n loop
-      saida := saida || i;
-      saida := saida || ' ';
+      saida := saida || i || ' ';
       soma := soma + i;
     end loop;
 
-    saida := saida || 'Sum=';
-    saida := saida || soma;
+    saida := saida || 'Sum=' || soma;
     raise notice '%', saida;
   end loop;
 end;
@@ -444,13 +438,11 @@ begin
     end loop;
 
     foreach i in array vetor loop
-      saida := saida || i;
-      saida := saida || ' ';
+      saida := saida || i || ' ';
       soma := soma + i;
     end loop;
 
-    saida := saida || 'Sum=';
-    saida := saida || soma;
+    saida := saida || 'Sum=' || soma;
     raise notice '%', saida;
   end loop;
 end;
@@ -500,7 +492,8 @@ begin
       n := n * matriz[j][l];
       -- raise notice '% %', matriz[j][k], matriz[j][l];
     end loop;
-      raise notice '+% -%', m, n;
+
+    -- raise notice '+% -%', m, n;
     d := d + m - n;
   end loop;
 
